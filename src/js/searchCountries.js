@@ -34,7 +34,7 @@ function onGetValue(e) {
 
            PNotify.error({
                text: 'Too many matches found. Please enter a more specific query!',
-               delay: 2000
+               delay: 2000,            
         });
             createsCountryMarkup ();
 
@@ -47,13 +47,19 @@ function onGetValue(e) {
 
             ref.countryContainer.insertAdjacentHTML('afterbegin', markupOneCountry);
 
-        } else if (data.message === "Not Found") {
+        } else if (data.length === 0){
+
+            clearMarkupContainer();
+
+        }
+         else if (data.message === "Not Found") {
              PNotify.error({
                text: 'Not found :(',
                delay: 2000
         });
         }
-    });
+    })
+        .catch(clearMarkupContainer());
 }
 
 function clearMarkupContainer() { 
